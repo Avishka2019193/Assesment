@@ -1,0 +1,29 @@
+CREATE TABLE [Order] (
+    OrderId UNIQUEIDENTIFIER PRIMARY KEY,
+    ProductId UNIQUEIDENTIFIER NOT NULL,
+    OrderStatus INT NOT NULL,
+    OrderType INT NOT NULL,
+    OrderBy UNIQUEIDENTIFIER NOT NULL,
+    OrderedOn DATETIME NOT NULL,
+    ShippedOn DATETIME,
+    IsActive BIT NOT NULL,
+    FOREIGN KEY (ProductId) REFERENCES Product(ProductId),
+    FOREIGN KEY (OrderBy) REFERENCES Customer(UserId)
+);
+
+CREATE TABLE Product (
+    ProductId UNIQUEIDENTIFIER PRIMARY KEY,
+    ProductName NVARCHAR(50) NOT NULL,
+    UnitPrice DECIMAL NOT NULL,
+    SupplierId UNIQUEIDENTIFIER NOT NULL,
+    CreatedOn DATETIME NOT NULL,
+    IsActive BIT NOT NULL,
+    FOREIGN KEY (SupplierId) REFERENCES Supplier(SupplierId)
+);
+
+CREATE TABLE Supplier (
+    SupplierId UNIQUEIDENTIFIER PRIMARY KEY,
+    SupplierName NVARCHAR(50) NOT NULL,
+    CreatedOn DATETIME NOT NULL,
+    IsActive BIT NOT NULL
+);
